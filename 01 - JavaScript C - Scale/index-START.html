@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Keyboard Instrument</title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<style>
+a {
+  color: rgb(230, 138, 53);
+}
+a:hover {
+  color: yellow;
+}
+
+.button-pressed {
+  outline: 1px;
+  outline-color: yellow;
+  outline-style: solid;
+  border-radius: .25rem;
+}
+
+</style>
+</head>
+<body class="bg-gray-400">
+<header class="text-4xl text-center bg-green-600 text-white font-bold">Let's play stuff</header>
+<main>
+  <div class="bg-gray-900">
+    <p class="text-center text-6xl text-white font-bold">
+      <span aria-label="speaker emoji">🔊</span>
+      On!
+    </p>
+    <p class="p-2 m-2 text-center text-white font-bold text-2xl">Press the corresponding letter to play that note.</p>
+    <div class="sm:inline-block md:flex justify-center">
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='67'>C</button>
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='68'>D</button>
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='69'>E</button>
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='70'>F</button>
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='71'>G</button>
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='65'>A</button>
+      <button class="text-4xl py-4 px-8 m-3 bg-gray-700 text-white rounded" id='66'>B</button>
+    </div>
+  </div>
+</main>
+<footer class="text-center inset-x-0.bottom-0">
+  Made with love by <a href="https://twitter.com/pickleat">Andy Pickle</a><br>
+  Inspired by <a href="https://javascript30.com">JavaScript30</a> by <a href="http://wesbos.com">WesBos</a>
+</footer>
+<audio id='C-note' src="sounds/C.mp3"></audio>
+<audio id='D-note' src="sounds/D.mp3"></audio>
+<audio id='E-note' src="sounds/E.mp3"></audio>
+<audio id='F-note' src="sounds/F.mp3"></audio>
+<audio id='G-note' src="sounds/G.mp3"></audio>
+<audio id='A-note' src="sounds/A.mp3"></audio>
+<audio id='B-note' src="sounds/B.mp3"></audio>
+
+<script>
+
+function toggle(key){
+  let buttons = Array.from(document.querySelectorAll('button'));
+  buttons.map(butt => {
+    (butt === key ? butt.classList.add('button-pressed') : butt.classList.remove('button-pressed'))
+  })
+}
+
+document.onkeydown = function(e){
+  const key = document.getElementById(e.keyCode)
+  if(key < 65 || key > 71){return}
+  toggle(key)
+  const note = key.innerText
+  const audio = document.getElementById(`${note}-note`)
+  audio.play()
+  console.log(note)
+}
+
+</script>
+</body>
+</html>
